@@ -1,31 +1,35 @@
 import React from 'react'
 import io from 'socket.io-client'
+import { connect } from 'react-redux'
+import { updateConnectionStatusAC } from './redux/mainReducer'
+import Header from './components/Header/Header'
 
-function App() {
+const App = (props) => {
+  const { updateConnectionStatus } = props
   const socket = io('http://localhost:3000')
-  let status = 'disconnected'
-  const connect = () => {
-    // alert("Connected: " + socket.id)
-    status = 'connected'
-  }
-
-  const disconnect = () => {
-    // alert("Disconected: " + socket.id)
-    status = 'disconnected'
-  }
-
-
-
-  socket.on('connect', connect)
-  socket.on('disconnect', disconnect)
+  socket.on('connect', () => { updateConnectionStatus(true) })
+  socket.on('disconnect', () => { updateConnectionStatus(false) })
 
 
 
   return (
     <div className="App">
-      {status}
+      <Header />
     </div>
   );
 }
 
-export default App;
+
+// const mapStateToProps = (state) => {
+//   return {
+//     mainPage: state.mainPage
+//   }
+// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateConnectionStatus: (value) => { dispatch(updateConnectionStatusAC(value)) },
+    // updateMessage: (e) => { dispatch(updateMessageActionCreator(e.target.value)) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App)
