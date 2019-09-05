@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const Header = (props) => {
- const { status } = props.mainPage
+ const { status, title } = props.mainPage
  return (
-  <h1>{status ? 'connected' : 'disconencted'}</h1>
+  <h1>{title} - {status ? 'connected' : 'disconencted'}</h1>
  )
 }
 

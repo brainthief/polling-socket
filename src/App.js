@@ -1,14 +1,15 @@
 import React from 'react'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
-import { updateConnectionStatusAC } from './redux/mainReducer'
+import { updateConnectionStatusAC, updateTitleAC } from './redux/mainReducer'
 import Header from './components/Header/Header'
 
 const App = (props) => {
-  const { updateConnectionStatus } = props
+  const { updateConnectionStatus, updateTitle } = props
   const socket = io('http://localhost:3000')
   socket.on('connect', () => { updateConnectionStatus(true) })
   socket.on('disconnect', () => { updateConnectionStatus(false) })
+  socket.on('welcome', (rez) => { updateTitle(rez.title) });
 
 
 
@@ -28,7 +29,7 @@ const App = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateConnectionStatus: (value) => { dispatch(updateConnectionStatusAC(value)) },
-    // updateMessage: (e) => { dispatch(updateMessageActionCreator(e.target.value)) }
+    updateTitle: (rez) => { dispatch(updateTitleAC(rez)) }
   }
 }
 

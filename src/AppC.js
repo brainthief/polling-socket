@@ -11,6 +11,8 @@ class App extends React.Component {
     this.socket = io('http://localhost:3000')
     this.socket.on('connect', this.connect.bind(this))
     this.socket.on('disconnect', this.disconnect.bind(this))
+    this.socket.on('disconnect', this.disconnect.bind(this))
+    this.socket.on('welcome', this.welcome.bind(this));
   }
 
   connect() {
@@ -23,10 +25,14 @@ class App extends React.Component {
     this.setState({ status: 'disconnected' })
   }
 
+  welcome(serverState) {
+    this.setState({ title: serverState.title })
+  }
+
   render() {
     return (
       <div className="App">
-        {this.state.status}
+        {this.state.title} - {this.state.status}
       </div>
     );
   }
