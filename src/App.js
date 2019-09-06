@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { updateConnectionStatusAC, updateTitleAC } from './redux/mainReducer'
 import Routes from './routes'
+import Header from './components/Header/Header'
 
 
 
@@ -16,7 +17,21 @@ const App = (props) => {
 
 
   return (
-    <Routes />
+    <div className="App">
+      <div class="container mt-2">
+        <div className="row">
+          <div className="col-12">
+            <div className="card">
+              <div class="card-header">
+                <Header />
+              </div>
+              <Routes />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
+
   );
 }
 
