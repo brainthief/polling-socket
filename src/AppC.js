@@ -4,7 +4,8 @@ import io from 'socket.io-client'
 class App extends React.Component {
 
   state = {
-    status: 'disconnected'
+    status: 'disconnected',
+    title: ''
   }
 
   componentWillMount() {
