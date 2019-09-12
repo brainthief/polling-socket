@@ -1,6 +1,9 @@
 import React from 'react'
 import io from 'socket.io-client'
 
+import Header from './componentsC/Header/Header'
+import RoutesC from './routesC'
+
 class App extends React.Component {
 
   state = {
@@ -30,17 +33,29 @@ class App extends React.Component {
     this.setState({ title: serverState.title })
   }
 
-  render() {
-    return (
-      <div className="App">
-        {this.state.title} - {this.state.status}
-      </div>
-    );
+  emit(eventName, playload) {
+    this.socket.emit(eventName, playload)
   }
 
 
-
-
+  render() {
+    return (
+      <div className="App">
+        <div className="container mt-2">
+          <div className="row">
+            <div className="col-12">
+              <div className="card">
+                <div className="card-header">
+                  <Header status={this.state.status} title={this.state.title} />
+                </div>
+                <RoutesC {...this.state} emit={this.emit.bind(this)} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div >
+    );
+  }
 }
 
 export default App;
