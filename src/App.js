@@ -1,20 +1,22 @@
 import React from 'react'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
-import { updateConnectionStatusAC, updateTitleAC } from './redux/mainReducer'
+import { updateConnectionStatusAC, updateTitleAC, updateMemberAC, updateAudienceAC } from './redux/mainReducer'
 import Routes from './routes'
 import Header from './components/Header/Header'
 
 
 
 const App = (props) => {
-  const { updateConnectionStatus, updateTitle } = props
+  const { updateConnectionStatus, updateTitle, updateMember, updateAudience } = props
   // const { name } = props.mainPage
 
   const socket = io('http://localhost:3000')
   socket.on('connect', () => { updateConnectionStatus(true) })
   socket.on('disconnect', () => { updateConnectionStatus(false) })
-  socket.on('welcome', (rez) => { updateTitle(rez.title) });
+  socket.on('welcome', (rez) => { updateTitle(rez.title) })
+  socket.on('joined', (rez) => { updateMember(rez) })
+  socket.on('audience', (rez) => { updateAudience(rez) })
 
   const emit = (eventName, playload) => {
     socket.emit(eventName, playload)
@@ -49,7 +51,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateConnectionStatus: (value) => { dispatch(updateConnectionStatusAC(value)) },
-    updateTitle: (rez) => { dispatch(updateTitleAC(rez)) }
+    updateTitle: (rez) => { dispatch(updateTitleAC(rez)) },
+    updateMember: (rez) => { dispatch(updateMemberAC(rez)) },
+    updateAudience: (rez) => { dispatch(updateAudienceAC(rez)) },
   }
 }
 
