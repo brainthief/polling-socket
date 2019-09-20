@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom"
 
 // import Speaker from './componentsC/Speaker/Speaker'
 // import Board from './componentsC/Board/Board'
-import Audience from './componentsC/Audience/Audience'
+import Audience from './componentsC/AudienceC/AudienceC'
 
 export default class RoutesC extends React.Component {
  render() {

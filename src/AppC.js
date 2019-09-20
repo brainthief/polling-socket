@@ -1,14 +1,17 @@
 import React from 'react'
 import io from 'socket.io-client'
 
-import Header from './componentsC/Header/Header'
+import Header from './componentsC/HeaderC/HeaderC'
 import RoutesC from './routesC'
 
 class App extends React.Component {
 
   state = {
     status: 'disconnected',
-    title: ''
+    title: '',
+    name: '',
+    audience: [],
+    member: {}
   }
 
   componentWillMount() {
@@ -16,7 +19,9 @@ class App extends React.Component {
     this.socket.on('connect', this.connect.bind(this))
     this.socket.on('disconnect', this.disconnect.bind(this))
     this.socket.on('disconnect', this.disconnect.bind(this))
-    this.socket.on('welcome', this.welcome.bind(this));
+    this.socket.on('welcome', this.welcome.bind(this))
+    this.socket.on('joined', this.joined.bind(this))
+    this.socket.on('audience', this.audience.bind(this))
   }
 
   connect() {
@@ -35,6 +40,14 @@ class App extends React.Component {
 
   emit(eventName, playload) {
     this.socket.emit(eventName, playload)
+  }
+
+  joined(playload) {
+    this.setState({ member: playload })
+  }
+
+  audience(audience) {
+    this.setState({ audience })
   }
 
 
