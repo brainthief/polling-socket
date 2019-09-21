@@ -56,6 +56,7 @@ const mainReducer = (state = initialState, action) => {
     case UPDATE_JOIN_NAME:
       return { ...state, name: action.name }
     case UPDATE_MEMBER:
+      sessionStorage.member = JSON.stringify(action.member)
       return { ...state, member: action.member }
     case UPDATE_AUDIENCE:
       return { ...state, audience: [...action.audience] }

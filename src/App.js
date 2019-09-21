@@ -18,8 +18,14 @@ const App = (props) => {
   socket.on('joined', (rez) => { updateMember(rez) })
   socket.on('audience', (rez) => { updateAudience(rez) })
 
+
   const emit = (eventName, playload) => {
     socket.emit(eventName, playload)
+  }
+
+  const member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null
+  if (member) {
+    emit('join', member)
   }
 
   return (
@@ -42,11 +48,11 @@ const App = (props) => {
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    mainPage: state.mainPage
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     mainPage: state.mainPage
+//   }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {

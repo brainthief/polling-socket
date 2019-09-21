@@ -26,6 +26,10 @@ class App extends React.Component {
 
   connect() {
     // alert("Connected: " + this.socket.id)
+    const member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null
+    if (member) {
+      this.emit('join', member)
+    }
     this.setState({ status: 'connected' })
   }
 
@@ -43,6 +47,7 @@ class App extends React.Component {
   }
 
   joined(playload) {
+    sessionStorage.member = JSON.stringify(playload)
     this.setState({ member: playload })
   }
 

@@ -15,12 +15,13 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
  socket.once('disconnect', function () {
-  var member = _.findWhere(audience, {id : this.id});
-  if(member){
+  var member = _.findWhere(audience, { id: this.id });
+  if (member) {
    audience.splice(audience.indexOf(member), 1);
    io.sockets.emit('audience', audience);
    console.log("Left: %s (%s audience member)", member.name, audience.length);
   }
+  connections.splice(connections.indexOf(socket), 1)
   socket.disconnect();
   console.log("Disconnected: %s sockets remaining", connections.length);
  });
