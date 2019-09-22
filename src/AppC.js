@@ -11,7 +11,8 @@ class App extends React.Component {
     title: '',
     name: '',
     audience: [],
-    member: {}
+    member: {},
+    speaker: {}
   }
 
   componentWillMount() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { updateJoinNameAC } from './../../redux/mainReducer'
@@ -12,6 +13,7 @@ const Join = (props) => {
    <label htmlFor="nameInput1">Vartotojo vardas</label>
    <input type="text" className="form-control" id="nameInput1" placeholder="Įveskite vardą" value={name} onChange={(e) => { updateJoinName(e.target.value) }} />
    <button type="button" className="btn btn-primary mt-2" disabled={name.length === 0} onClick={() => { emit('join', { name: name }) }}>Prisijungti</button>
+   <p><Link to="/speaker">Prisijungti kaip prezentacijos vedėjas</Link></p>
   </div >
  )
 }

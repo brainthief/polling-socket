@@ -3,6 +3,8 @@ const UPDATE_TITLE = 'SOCKET_IO/MAIN_PAGE/UPDATE_TITLE'
 const UPDATE_JOIN_NAME = 'SOCKET_IO/MAIN_PAGE/UPDATE_JOIN_NAME'
 const UPDATE_MEMBER = 'SOCKET_IO/MAIN_PAGE/UPDATE_MEMBER'
 const UPDATE_AUDIENCE = 'SOCKET_IO/MAIN_PAGE/UPDATE_AUDIENCE'
+const UPDATE_SPEAKER_NAME = 'SOCKET_IO/SPEAKER_PAGE/UPDATE_SPEAKER_NAME'
+const UPDATE_PRESENTATION_TITLE = 'SOCKET_IO/SPEAKER_PAGE/UPDATE_PRESENTATION_TITLE'
 
 const initialState = {
   status: false,
@@ -10,6 +12,9 @@ const initialState = {
   name: '',
   member: {},
   audience: [],
+  speaker: {},
+  speakerName: '',
+  prasentationTitle: ''
 }
 
 export const updateConnectionStatusAC = value => {
@@ -47,6 +52,20 @@ export const updateAudienceAC = (audience) => {
   }
 }
 
+export const updateSpeakerNameAC = (name) => {
+  return {
+    type: UPDATE_SPEAKER_NAME,
+    name
+  }
+}
+
+export const updatePresentationTitleAC = (title) => {
+  return {
+    type: UPDATE_PRESENTATION_TITLE,
+    title
+  }
+}
+
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CONNECTION_STATUS:
@@ -60,6 +79,10 @@ const mainReducer = (state = initialState, action) => {
       return { ...state, member: action.member }
     case UPDATE_AUDIENCE:
       return { ...state, audience: [...action.audience] }
+    case UPDATE_SPEAKER_NAME:
+      return { ...state, speakerName: action.name }
+    case UPDATE_PRESENTATION_TITLE:
+      return { ...state, prasentationTitle: action.title }
     default:
       return state
   }
