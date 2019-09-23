@@ -19,10 +19,10 @@ class App extends React.Component {
     this.socket = io('http://localhost:3000')
     this.socket.on('connect', this.connect.bind(this))
     this.socket.on('disconnect', this.disconnect.bind(this))
-    this.socket.on('disconnect', this.disconnect.bind(this))
     this.socket.on('welcome', this.welcome.bind(this))
     this.socket.on('joined', this.joined.bind(this))
     this.socket.on('audience', this.audience.bind(this))
+    this.socket.on('start', this.welcome.bind(this))
   }
 
   connect() {
@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   welcome(serverState) {
-    this.setState({ title: serverState.title })
+    this.setState({ title: serverState.title, speaker: { name: serverState.speaker } })
   }
 
   emit(eventName, playload) {
@@ -65,7 +65,7 @@ class App extends React.Component {
             <div className="col-12">
               <div className="card">
                 <div className="card-header">
-                  <Header status={this.state.status} title={this.state.title} />
+                  <Header status={this.state.status} title={this.state.title} speaker={this.state.speaker} />
                 </div>
                 <RoutesC {...this.state} emit={this.emit.bind(this)} />
               </div>
