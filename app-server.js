@@ -43,12 +43,16 @@ io.sockets.on('connection', function (socket) {
   speaker.name = payload.name;
   speaker.is = this.id; //šio socketo id
   speaker.type = 'speaker';
+  title = payload.title;
   this.emit('joined', speaker);
+  io.sockets.emit('welcome', { title: title, speaker: speaker.name });
   console.log("Presentation Started: '%s' by %s", title, speaker.name);
  })
 
  socket.emit('welcome', {
-  title: title
+  title: title,
+  audience: audience,
+  speaker: speaker.name
  });
  connections.push(socket);
  console.log("Connected: %s", socket.id);

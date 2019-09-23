@@ -14,10 +14,10 @@ const App = (props) => {
   const socket = io('http://localhost:3000')
   socket.on('connect', () => { updateConnectionStatus(true) })
   socket.on('disconnect', () => { updateConnectionStatus(false) })
-  socket.on('welcome', (rez) => { updateTitle(rez.title) })
+  socket.on('welcome', (rez) => { updateTitle(rez) })
   socket.on('joined', (rez) => { updateMember(rez) })
   socket.on('audience', (rez) => { updateAudience(rez) })
-
+  socket.on('start', (rez) => { updateTitle(rez) })
 
   const emit = (eventName, playload) => {
     socket.emit(eventName, playload)

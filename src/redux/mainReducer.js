@@ -14,7 +14,7 @@ const initialState = {
   audience: [],
   speaker: {},
   speakerName: '',
-  prasentationTitle: ''
+  presentationTitle: ''
 }
 
 export const updateConnectionStatusAC = value => {
@@ -71,7 +71,7 @@ const mainReducer = (state = initialState, action) => {
     case UPDATE_CONNECTION_STATUS:
       return { ...state, status: action.value }
     case UPDATE_TITLE:
-      return { ...state, title: action.value }
+      return { ...state, title: action.value.title, speaker: { name: action.value.speaker } }
     case UPDATE_JOIN_NAME:
       return { ...state, name: action.name }
     case UPDATE_MEMBER:
@@ -82,7 +82,7 @@ const mainReducer = (state = initialState, action) => {
     case UPDATE_SPEAKER_NAME:
       return { ...state, speakerName: action.name }
     case UPDATE_PRESENTATION_TITLE:
-      return { ...state, prasentationTitle: action.title }
+      return { ...state, presentationTitle: action.title }
     default:
       return state
   }
